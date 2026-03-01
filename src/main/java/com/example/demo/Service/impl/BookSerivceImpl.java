@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -40,6 +41,16 @@ public class BookSerivceImpl implements BookService {
     @Override
     public List<BookResponse> getPriceHighToLow() {
         return bookMapper.EntityMapperToResponse(bookRepository.getPriceHighToLow());
+    }
+
+    @Override
+    public List<BookResponse> getSearhProduct(String Name) {
+        return  bookMapper.EntityMapperToResponse(bookRepository.searchBooks(Name));
+    }
+
+    @Override
+    public List<BookResponse> getPricebetween(BigDecimal min, BigDecimal max) {
+        return  bookMapper.EntityMapperToResponse(bookRepository.filterByPrice(min,max));
     }
 
 

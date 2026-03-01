@@ -1,0 +1,12 @@
+spring:
+  application:
+    name:
+      Bookshop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/BookShop
+    username: postgres
+    password: 130804
+    driverClassName: org.postgresql.Driver
+server:
+  port: 8080
+  address: 0.0.0.0

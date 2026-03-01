@@ -20,7 +20,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b FROM Book b ORDER BY b.price DESC ")
     List<Book> getPriceHighToLow();
 
-    @Query("SELECT b FROM Book b ORDER BY b.price DESC ")
+    @Query("SELECT b FROM Book b ORDER BY b.price ASC ")
     List<Book> getPriceLowToHigh();
 
     @Query("""
@@ -38,12 +38,6 @@ WHERE b.price BETWEEN :minPrice AND :maxPrice
             @Param("maxPrice") BigDecimal maxPrice
     );
 
-    @Query("""
-SELECT b FROM Book b
-JOIN BookCategory bc ON b.id = bc.book.id
-JOIN Category c ON bc.category.id = c.id
-WHERE c.name = :categoryName
-""")
-    List<Book> filterByCategory(@Param("categoryName") String categoryName);
+    List<Book> findByCategories_Name(String categoryName);
 
 }

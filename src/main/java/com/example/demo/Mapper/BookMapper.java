@@ -3,10 +3,12 @@ package com.example.demo.Mapper;
 
 import com.example.demo.Dto.Response.BookResponse;
 import com.example.demo.Entity.Book;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookMapper {
 
     public Book RepoMapperToEntity(BookResponse bookResponse) {

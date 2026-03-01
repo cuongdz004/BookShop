@@ -13,4 +13,6 @@ public interface BookService {
     List<BookResponse> getPriceHighToLow();
     List<BookResponse> getSearhProduct(String Name);
     List<BookResponse> getPricebetween(BigDecimal min,BigDecimal max);
+    List<BookResponse> getCate(String cate);
+
 }

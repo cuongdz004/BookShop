@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 
 @Entity
@@ -38,4 +39,12 @@ public class Book {
 
     @Column(name = "created_at", updatable = false, insertable = false)
     private LocalDateTime createdAt;
+
+    @ManyToMany
+    @JoinTable(
+            name = "book_categories",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories;
 }

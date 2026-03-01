@@ -47,4 +47,11 @@ public class BooksController {
     ) {
         return ResponseEntity.ok(bookService.getPricebetween(min, max));
     }
+
+    @GetMapping("/filtercate")
+    public ResponseEntity<List<BookResponse>> filtercate(
+            @RequestParam("keyword") String cate
+    ) {
+        return ResponseEntity.ok(bookService.getSearhProduct(cate));
+    }
 }

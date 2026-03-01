@@ -53,5 +53,10 @@ public class BookSerivceImpl implements BookService {
         return  bookMapper.EntityMapperToResponse(bookRepository.filterByPrice(min,max));
     }
 
+    @Override
+    public List<BookResponse> getCate(String cate) {
+        return  bookMapper.EntityMapperToResponse(bookRepository.findByCategories_Name(cate));
+    }
+
 
 }

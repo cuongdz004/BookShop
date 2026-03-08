@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Dto.Response.BookResponse;
+import com.example.demo.Entity.Book;
 import com.example.demo.Service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,20 @@ public class BooksController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/BookDetail/{id}")
+    public ResponseEntity<BookResponse> getBookDetail(@PathVariable Long id){
+        return ResponseEntity.ok(bookService.getBookByBookId(id));
+    }
+
     @GetMapping("/Top10NewArrivals")
     public ResponseEntity<List<BookResponse>> getTop10NewArrivals() {
 
         return ResponseEntity.ok(bookService.getTop10NewArrivals());
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<BookResponse>> getAll() {
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     @GetMapping("/PriceLowToHigh")
@@ -50,8 +61,8 @@ public class BooksController {
 
     @GetMapping("/filtercate")
     public ResponseEntity<List<BookResponse>> filtercate(
-            @RequestParam("keyword") String cate
+            @RequestParam("CategoryName") String CategoryName
     ) {
-        return ResponseEntity.ok(bookService.getSearhProduct(cate));
+        return ResponseEntity.ok(bookService.getByCate(CategoryName));
     }
 }

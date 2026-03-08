@@ -38,6 +38,18 @@ WHERE b.price BETWEEN :minPrice AND :maxPrice
             @Param("maxPrice") BigDecimal maxPrice
     );
 
-    List<Book> findByCategories_Name(String categoryName);
+    List<Book> findByCategoryId(Long id);
+
+
+    @Query("""
+SELECT b
+FROM Book b
+WHERE b.categoryId IN (
+    SELECT c.id
+    FROM Category c
+    WHERE c.name = :name
+)
+""")
+    List<Book> findByCategoryName(@Param("name") String name);
 
 }

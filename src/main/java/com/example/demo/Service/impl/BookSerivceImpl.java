@@ -1,6 +1,7 @@
 package com.example.demo.Service.impl;
 
 import com.example.demo.Dto.Response.BookResponse;
+import com.example.demo.Entity.Book;
 import com.example.demo.Mapper.BookMapper;
 import com.example.demo.Repository.BookRepository;
 import com.example.demo.Service.BookService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookSerivceImpl implements BookService {
@@ -21,6 +23,11 @@ public class BookSerivceImpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
 
+
+    @Override
+    public BookResponse getBookByBookId(Long Id) {
+        return bookMapper.MapperOne(bookRepository.findById(Id));
+    }
 
     @Override
     public List<BookResponse> getAllBooks() {
@@ -54,8 +61,8 @@ public class BookSerivceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponse> getCate(String cate) {
-        return  bookMapper.EntityMapperToResponse(bookRepository.findByCategories_Name(cate));
+    public List<BookResponse> getByCate(String name) {
+        return  bookMapper.EntityMapperToResponse(bookRepository.findByCategoryName(name));
     }
 
 

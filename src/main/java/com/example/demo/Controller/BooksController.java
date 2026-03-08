@@ -29,11 +29,6 @@ public class BooksController {
         return ResponseEntity.ok(bookService.getTop10NewArrivals());
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<BookResponse>> getAll() {
-        return ResponseEntity.ok(bookService.getAllBooks());
-    }
-
     @GetMapping("/PriceLowToHigh")
     public ResponseEntity<List<BookResponse>> getPriceLowToHigh() {
         return ResponseEntity.ok(bookService.getPriceLowToHigh());
@@ -65,7 +60,7 @@ public class BooksController {
     ) {
         return ResponseEntity.ok(bookService.getByCate(CategoryName));
     }
-        @GetMapping("/book/all")
+    @GetMapping("/book/all")
     public ResponseEntity<List<BookResponse>> getAll() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }

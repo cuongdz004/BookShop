@@ -12,4 +12,6 @@ public class BookResponse {
     private String author;
     private BigDecimal price;
     private String imageUrl;
+    private String summary;
+    private int Quantity;
 }

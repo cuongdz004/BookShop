@@ -40,11 +40,10 @@ public class Book {
     @Column(name = "created_at", updatable = false, insertable = false)
     private LocalDateTime createdAt;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_categories",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> categories;
+
+    @Column(name = "summary")
+    private String summary;
+
+    @Column(name = "category_id")
+    private Long categoryId;
 }

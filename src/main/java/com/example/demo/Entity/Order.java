@@ -14,9 +14,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
-    private String userName;
-
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
@@ -24,10 +21,7 @@ public class Order {
     private String status;
 
     @Column(name = "created_at",updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "phone")
-    private String phone;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "email")
     private String email;

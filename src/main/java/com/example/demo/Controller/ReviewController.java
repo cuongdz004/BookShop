@@ -19,4 +19,9 @@ public class ReviewController {
     public ResponseEntity<List<ReviewReponse>> getAllReviewByBookId(@PathVariable Long id){
         return ResponseEntity.ok(reviewService.getReviewByBookId(id));
     }
+
+    @GetMapping("/RatePoint/{id}")
+    public ResponseEntity<List<Object[]>> getRatePoint(@PathVariable Long id){
+        return ResponseEntity.ok(reviewService.getRating(id));
+    }
 }

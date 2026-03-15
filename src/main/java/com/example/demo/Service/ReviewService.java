@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ReviewService {
     List<ReviewReponse> getReviewByBookId(Long Id);
+    List<Object[]> getRating(Long Id);
 }

@@ -60,7 +60,7 @@ public class BooksController {
     ) {
         return ResponseEntity.ok(bookService.getByCate(CategoryName));
     }
-    @GetMapping("/book/all")
+    @GetMapping("")
     public ResponseEntity<List<BookResponse>> getAll() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }

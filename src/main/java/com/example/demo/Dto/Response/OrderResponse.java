@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Data
 public class OrderResponse {
     public Long id;
-    private String userName;
     private BigDecimal totalAmount;
     private String status;
     private LocalDateTime createdAt;

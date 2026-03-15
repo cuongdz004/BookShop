@@ -22,7 +22,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b ORDER BY b.price ASC ")
     List<Book> getPriceLowToHigh();
-
+//
     @Query("""
 SELECT b FROM Book b
 WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :keyword, '%'))

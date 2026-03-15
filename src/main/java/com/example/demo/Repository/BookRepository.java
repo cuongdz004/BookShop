@@ -51,5 +51,5 @@ WHERE b.categoryId IN (
 )
 """)
     List<Book> findByCategoryName(@Param("name") String name);
-
+    List<Book> findByIdIn(List<Long> ids);
 }

@@ -21,4 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryResponse> getAllCategory() {
         return categoryMapper.CategoryEntityMapperToResponse(categoryRepository.findAll());
     }
+
+    @Override
+    public List<CategoryResponse> getAllCategory(String useremail) {
+        return List.of();
+    }
 }

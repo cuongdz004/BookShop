@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Dto.Request.BookRequest;
 import com.example.demo.Dto.Response.BookResponse;
 import com.example.demo.Entity.Book;
 import com.example.demo.Service.BookService;
@@ -63,5 +64,21 @@ public class BooksController {
     @GetMapping("")
     public ResponseEntity<List<BookResponse>> getAll() {
         return ResponseEntity.ok(bookService.getAllBooks());
+    }
+
+    @GetMapping("/sumBooks")
+    public ResponseEntity<Long> getSumBooks(){
+        return ResponseEntity.ok(bookService.getSumBooks());
+    }
+
+    @PutMapping("/UpdateBooks/{bookId}")
+    public ResponseEntity<?> UpdateBooks(@PathVariable Long bookId){
+        return null;
+    }
+
+    @PostMapping("/CreateBook")
+    public ResponseEntity<?> CreateBooks(@RequestBody BookRequest bookRequest){
+        bookService.CreateBooks(bookRequest);
+        return ResponseEntity.ok("Thanh cong");
     }
 }

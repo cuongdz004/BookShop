@@ -24,4 +24,9 @@ public class ReviewController {
     public ResponseEntity<List<Object[]>> getRatePoint(@PathVariable Long id){
         return ResponseEntity.ok(reviewService.getRating(id));
     }
+
+    @GetMapping("/AllReviews")
+    public ResponseEntity<List<ReviewReponse>> getAll(){
+        return ResponseEntity.ok(reviewService.getAll());
+    }
 }

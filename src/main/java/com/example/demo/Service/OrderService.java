@@ -8,4 +8,5 @@ import java.util.List;
 public interface OrderService {
     List<BookResponse> getTopSellingBooks();
     void checkOut(CheckOutRequest checkOutRequest);
+    int getSumOrder();
 }

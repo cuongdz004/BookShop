@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Dto.Request.BookRequest;
 import com.example.demo.Dto.Response.BookResponse;
 import com.example.demo.Entity.Book;
 
@@ -16,4 +17,6 @@ public interface BookService {
     List<BookResponse> getSearhProduct(String Name);
     List<BookResponse> getPricebetween(BigDecimal min,BigDecimal max);
     List<BookResponse> getByCate(String name);
+    Long getSumBooks();
+    void CreateBooks(BookRequest bookRequest);
 }

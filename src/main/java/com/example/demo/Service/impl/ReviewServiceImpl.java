@@ -27,4 +27,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Object[]> getRating(Long Id) {
         return reviewRepository.countRatingByBook(Id);
     }
+
+    @Override
+    public List<ReviewReponse> getAll() {
+        return reviewMapper.ReviewEntityMapperToResponse(reviewRepository.findAll());
+    }
 }

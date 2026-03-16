@@ -1,5 +1,6 @@
 package com.example.demo.Mapper;
 
+import com.example.demo.Dto.Request.CategoryRequest;
 import com.example.demo.Dto.Response.CategoryResponse;
 import com.example.demo.Entity.Category;
 import org.springframework.stereotype.Component;
@@ -18,5 +19,11 @@ public class CategoryMapper {
                         return categoryResponse;
                 })
                 .toList();
+    }
+
+    public Category CategoryRequestMapperToEntity(CategoryRequest categoryRequest) {
+        Category category = new Category();
+        category.setName(categoryRequest.getName());
+        return category;
     }
 }

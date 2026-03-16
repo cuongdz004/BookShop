@@ -1,5 +1,6 @@
 package com.example.demo.Service.impl;
 
+import com.example.demo.Dto.Request.CategoryRequest;
 import com.example.demo.Dto.Response.CategoryResponse;
 import com.example.demo.Mapper.CategoryMapper;
 import com.example.demo.Repository.CategoryRepository;
@@ -25,5 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponse> getAllCategory(String useremail) {
         return List.of();
+    }
+
+    @Override
+    public void CreateCategory(CategoryRequest categoryRequest) {
+        categoryRepository.save(categoryMapper.CategoryRequestMapperToEntity(categoryRequest));
     }
 }

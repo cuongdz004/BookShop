@@ -1,10 +1,13 @@
 package com.example.demo.Mapper;
 
 
+import com.example.demo.Dto.Request.BookRequest;
 import com.example.demo.Dto.Response.BookResponse;
 import com.example.demo.Entity.Book;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,20 @@ public class BookMapper {
                       return  bookResponse;
                   })
                   .toList();
+    }
+
+    public Book RequestToEntity(BookRequest bookRequest){
+        Book newbook = new Book();
+        newbook.setAuthor(bookRequest.getAuthor());
+        newbook.setDescription(bookRequest.getDescription());
+        newbook.setName(bookRequest.getName());
+        newbook.setPrice(bookRequest.getPrice());
+        newbook.setQuantity(bookRequest.getQuantity());
+        newbook.setSummary(bookRequest.getSummary());
+        newbook.setImageUrl(bookRequest.getImageUrl());
+        newbook.setCategoryId(bookRequest.getCategoryId());
+        newbook.setCreatedAt(LocalDateTime.now());
+        return newbook;
     }
 
     public BookResponse MapperOne(Optional<Book> b){

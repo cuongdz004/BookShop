@@ -1,5 +1,6 @@
 package com.example.demo.Service.impl;
 
+import com.example.demo.Dto.Request.BookRequest;
 import com.example.demo.Dto.Response.BookResponse;
 import com.example.demo.Entity.Book;
 import com.example.demo.Mapper.BookMapper;
@@ -63,6 +64,16 @@ public class BookSerivceImpl implements BookService {
     @Override
     public List<BookResponse> getByCate(String name) {
         return  bookMapper.EntityMapperToResponse(bookRepository.findByCategoryName(name));
+    }
+
+    @Override
+    public Long getSumBooks() {
+        return bookRepository.count();
+    }
+
+    @Override
+    public void CreateBooks(BookRequest bookRequest) {
+        bookRepository.save(bookMapper.RequestToEntity(bookRequest));
     }
 
 

@@ -13,4 +13,5 @@ public class BookRequest {
     private String imageUrl;
     private String summary;
     private int Quantity;
+    private Long categoryId;
 }

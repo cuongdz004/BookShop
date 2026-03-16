@@ -74,4 +74,9 @@ public class OrderItemImpl implements OrderService {
         }
 
     }
+
+    @Override
+    public int getSumOrder() {
+        return 0;
+    }
 }

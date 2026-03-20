@@ -25,13 +25,6 @@ public class CartItemController {
 
     @PostMapping("/createcart")
     public ResponseEntity<?> createCart(@RequestBody CartItem cartItem) {
-//        System.out.println("===== CART DATA FROM FE =====");
-//        System.out.println("userEmail: " + cartItem.getUserEmail());
-//        System.out.println("bookId: " + cartItem.getBookId());
-//        System.out.println("quantity: " + cartItem.getQuantity());
-//        System.out.println("price: " + cartItem.getPrice());
-//        System.out.println("=============================");
-////        CartItem savedCart = cartItemRepository.save(cartItem);
         cartService.saveCartItem(cartItem);
 //        return ResponseEntity.ok(savedCart);
         return ResponseEntity.ok("Added to cart");

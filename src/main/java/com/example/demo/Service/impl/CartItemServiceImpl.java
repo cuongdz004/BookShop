@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -19,6 +20,20 @@ public class CartItemServiceImpl  implements CartItemService {
 
     @Override
     public CartItem saveCartItem(CartItem cartItem){
+
+        Optional<CartItem> existing = cartItemRepository
+                .findByUserEmailAndBookId(cartItem.getUserEmail(), cartItem.getBookId());
+
+        if(existing.isPresent()){
+
+            CartItem item = existing.get();
+
+            item.setQuantity(item.getQuantity() + cartItem.getQuantity());
+
+            return cartItemRepository.save(item);
+
+        }
+
         return cartItemRepository.save(cartItem);
     }
 

@@ -10,12 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     List<CartItem> findByUserEmail(String userEmail);
-
+    Optional<CartItem> findByUserEmailAndBookId(String userEmail, Long bookId);
     @Query("""
 SELECT new com.example.demo.Dto.Response.CartItemResponse(
     c.id,

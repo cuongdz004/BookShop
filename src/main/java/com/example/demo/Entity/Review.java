@@ -1,7 +1,10 @@
 package com.example.demo.Entity;
 
+import com.example.demo.Enums.ReviewStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,10 +24,14 @@ public class Review {
     @Column(nullable = false)
     private Integer rating;
 
+    @CreationTimestamp
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "book_id", nullable = false)
     private Long bookId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_review")
+    private ReviewStatus statusReview;
 }

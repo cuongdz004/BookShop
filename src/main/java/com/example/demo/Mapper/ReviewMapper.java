@@ -1,10 +1,13 @@
 package com.example.demo.Mapper;
 
+import com.example.demo.Dto.Request.ReviewRequest;
 import com.example.demo.Dto.Response.CategoryResponse;
 import com.example.demo.Dto.Response.ReviewReponse;
 import com.example.demo.Entity.Review;
+import com.example.demo.Enums.ReviewStatus;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -23,5 +26,15 @@ public class ReviewMapper {
                               return reviewReponse;
                           })
                           .toList();
+    }
+
+
+    public Review ReviewRequestMapperToEntity(ReviewRequest reviewRequest){
+           Review review = new Review();
+           review.setBookId(reviewRequest.getBookId());
+           review.setComment(reviewRequest.getComment());
+           review.setRating(reviewRequest.getRating());
+           review.setUsername(reviewRequest.getUsername());
+           return review;
     }
 }

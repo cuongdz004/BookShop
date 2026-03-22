@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 
+import com.example.demo.Dto.Response.PromotionResponse;
 import com.example.demo.Entity.Promotion;
 import com.example.demo.Service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class PromotionController {
 
 
     @GetMapping("/getAllPromotion")
-    public ResponseEntity<List<Promotion>> getAllPromotion(){
+    public ResponseEntity<List<PromotionResponse>> getAllPromotion(){
         return ResponseEntity.ok(promotionService.getAllPromotion());
     }
 

@@ -1,6 +1,8 @@
 package com.example.demo.Service.impl;
 
+import com.example.demo.Dto.Response.PromotionResponse;
 import com.example.demo.Entity.Promotion;
+import com.example.demo.Mapper.PromotionMapper;
 import com.example.demo.Repository.PromotionRepository;
 import com.example.demo.Repository.UserPromotionRepository;
 import com.example.demo.Service.PromotionService;
@@ -18,9 +20,12 @@ public class PromotionServiceImpl implements PromotionService {
     @Autowired
     private UserPromotionRepository userPromotionRepository;
 
+    @Autowired
+    private PromotionMapper promotionMapper;
+
     @Override
-    public List<Promotion> getAllPromotion() {
-        return promotionRepository.findAll();
+    public List<PromotionResponse> getAllPromotion() {
+        return promotionMapper.PromotionMapperToResponse(promotionRepository.findAll()) ;
     }
 
     @Override

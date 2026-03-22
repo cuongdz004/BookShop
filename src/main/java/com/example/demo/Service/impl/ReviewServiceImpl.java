@@ -1,6 +1,9 @@
 package com.example.demo.Service.impl;
 
+import com.example.demo.Dto.Request.ReviewRequest;
 import com.example.demo.Dto.Response.ReviewReponse;
+import com.example.demo.Entity.Review;
+import com.example.demo.Enums.ReviewStatus;
 import com.example.demo.Mapper.ReviewMapper;
 import com.example.demo.Repository.ReviewRepository;
 import com.example.demo.Service.ReviewService;
@@ -31,5 +34,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewReponse> getAll() {
         return reviewMapper.ReviewEntityMapperToResponse(reviewRepository.findAll());
+    }
+
+    @Override
+    public void CreateReview(ReviewRequest reviewRequest) {
+        Review newreview = reviewMapper.ReviewRequestMapperToEntity(reviewRequest);
+        newreview.setStatusReview(ReviewStatus.PENDING);
+         reviewRepository.save(newreview);
     }
 }

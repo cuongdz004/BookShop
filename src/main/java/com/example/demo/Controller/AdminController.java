@@ -58,6 +58,7 @@ public class AdminController {
         adminService.CreateCategory(categoryRequest);
         return ResponseEntity.ok("Thanh cong");
     }
+
     @GetMapping("/AllReviews")
     public ResponseEntity<List<ReviewReponse>> getAll(){
         return ResponseEntity.ok(adminService.getAll());
@@ -67,4 +68,7 @@ public class AdminController {
     public ResponseEntity<List<Order>> getallorder() {
         return ResponseEntity.ok(orderService.findAll());
     }
+
+
+
 }

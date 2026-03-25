@@ -25,4 +25,7 @@ public class Order {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "order_code")
+    private String orderCode;
 }

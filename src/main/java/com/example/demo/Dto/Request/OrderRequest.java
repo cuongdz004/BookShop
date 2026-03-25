@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 @Data
 public class OrderRequest {
     private Long bookId;
-    private Long quantity;
+    private Integer quantity;
     private BigDecimal price;
 }

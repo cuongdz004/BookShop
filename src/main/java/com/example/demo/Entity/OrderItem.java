@@ -21,8 +21,9 @@ public class OrderItem {
     private Long bookId;
 
     @Column(name = "quantity")
-    private Long quantity;
+    private Integer quantity;
 
     @Column(name = "price")
     private BigDecimal price;
+
 }

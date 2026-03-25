@@ -1,5 +1,6 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Entity.Order;
 import com.example.demo.Entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
         ORDER BY SUM(oi.quantity) DESC
     """)
     List<Long> findTopSellingBookIds(Pageable pageable);
+    List<OrderItem> findByOrder(Order order);
+
 }

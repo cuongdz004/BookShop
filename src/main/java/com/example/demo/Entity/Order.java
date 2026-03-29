@@ -28,4 +28,13 @@ public class Order {
 
     @Column(name = "order_code")
     private String orderCode;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "shipping_status")
+    private String shippingStatus;
 }

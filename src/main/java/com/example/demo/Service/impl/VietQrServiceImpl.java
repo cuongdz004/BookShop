@@ -47,8 +47,10 @@ public class VietQrServiceImpl implements VietQrService {
         order.setOrderCode(orderCode);
         order.setEmail(request.getEmail());
         order.setTotalAmount(request.getTotal());
+        order.setAddress(request.getAddress());
+        order.setPhone(request.getPhone());
         order.setStatus("PENDING");
-
+        order.setShippingStatus("SHIPPING");
         Order savedOrder = orderRepository.save(order);
 
         String qrUrl = vietQrGenerator.generateQR(orderCode, request.getTotal());
@@ -66,6 +68,8 @@ public class VietQrServiceImpl implements VietQrService {
             if (book.getQuantity() < item.getQuantity()) {
                 throw new RuntimeException("Not enough stock");
             }
+            book.setQuantity(book.getQuantity() - item.getQuantity().intValue());
+            bookRepository.save(book);
 
             OrderItem orderItem = new OrderItem();
             orderItem.setBookId(item.getBookId());
@@ -78,7 +82,51 @@ public class VietQrServiceImpl implements VietQrService {
 
         return res;
     }
+    @Transactional
+    public void cancelOrder(Long orderId) {
 
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
+
+
+        if(order.getStatus().equals("CANCELLED")){
+            throw new RuntimeException("Đơn đã bị huỷ trước đó");
+        }
+
+        if(order.getStatus().equals("EXPIRED")){
+            throw new RuntimeException("Đơn đã hết hạn");
+        }
+
+        if(order.getStatus().equals("DELIVERED")){
+            throw new RuntimeException("Đơn đã giao, không thể huỷ");
+        }
+
+        // if(!order.getStatus().equals("PENDING") && !order.getStatus().equals("SHIPPING")){
+        //     throw new RuntimeException("Không thể huỷ đơn ở trạng thái này");
+        // }
+
+        // 3. Lấy danh sách item
+        List<OrderItem> items = orderItemRepository.findByOrder(order);
+
+        // 4. Hoàn lại kho
+        for(OrderItem item : items){
+
+            Book book = bookRepository.findById(item.getBookId())
+                    .orElseThrow(() -> new RuntimeException("Book not found"));
+
+            book.setQuantity(
+                    book.getQuantity() + item.getQuantity().intValue()
+            );
+
+            bookRepository.save(book);
+        }
+
+        // 5. Update trạng thái
+        order.setStatus("CANCELLED");
+
+        orderRepository.save(order);
+    }
     @Override
     @Transactional
     public void handleSepayWebhook(SepayWebhookRequest request) {

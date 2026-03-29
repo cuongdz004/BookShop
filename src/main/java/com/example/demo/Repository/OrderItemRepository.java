@@ -19,5 +19,5 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     """)
     List<Long> findTopSellingBookIds(Pageable pageable);
     List<OrderItem> findByOrder(Order order);
-
+    List<OrderItem> findOrderItemByOrderId(Long orderId);
 }

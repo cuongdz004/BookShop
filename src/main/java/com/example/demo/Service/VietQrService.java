@@ -6,7 +6,6 @@ import com.example.demo.Dto.Response.VietQrResponse;
 
 public interface  VietQrService {
     VietQrResponse createPayment(VietQrRequest request);
-
     void handleSepayWebhook(SepayWebhookRequest request);
 
 }

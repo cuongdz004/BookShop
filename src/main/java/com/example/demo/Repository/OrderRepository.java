@@ -18,4 +18,5 @@ WHERE p.status = 'PENDING'
 AND p.createdAt < :time
 """)
     List<Order> findExpiredOrders(LocalDateTime time);
+    Optional<Order> findOrderById(Long orderId);
 }

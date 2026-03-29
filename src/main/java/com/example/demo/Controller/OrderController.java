@@ -24,10 +24,22 @@ public class OrderController {
     @GetMapping("/getorder/{email}")
     public ResponseEntity<List<OrderResponse>> getOrder(@PathVariable String email) {
 
-        System.out.println("Email: " + email);
+//        System.out.println("Email: " + email);
 
         List<OrderResponse> orders = orderService.getOrderByEmail(email);
 
         return ResponseEntity.ok(orders);
+    }
+    @PutMapping("/transport/{id}/confirm")
+    public ResponseEntity<?> confirmOrder(@PathVariable Long id){
+        orderService.confirmDelivered(id);
+        return ResponseEntity.ok("OK");
+    }
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id){
+
+        orderService.cancelOrder(id);
+
+        return ResponseEntity.ok("Order cancel");
     }
 }

@@ -14,6 +14,7 @@ import com.example.demo.Repository.OrderItemRepository;
 import com.example.demo.Repository.OrderRepository;
 import com.example.demo.Service.OrderService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,24 +23,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
 @Service
 public class OrderItemImpl implements OrderService {
-    @Autowired
-    private OrderItemMapper orderItemMapper;
-    @Autowired
-    private BookMapper bookMapper;
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private BookRepository bookRepository;
+
+    private final OrderItemMapper orderItemMapper;
+    private final BookMapper bookMapper;
+    private final OrderItemRepository orderItemRepository;
+    private final OrderRepository orderRepository;
+    private final BookRepository bookRepository;
     @Override
     public List<BookResponse> getTopSellingBooks() {
 
-        Pageable top4 = PageRequest.of(0, 4);
+        Pageable top4 = PageRequest.of(0, 5);
 
         List<Long> topBookIds = orderItemRepository.findTopSellingBookIds(top4);
 
@@ -100,7 +98,7 @@ public class OrderItemImpl implements OrderService {
     @Override
     public List<OrderResponse> getOrderByEmail(String email) {
 
-        System.out.println("Email: " + email);
+//        System.out.println("Email: " + email);
 
         List<Order> orders = orderRepository.findByEmail(email);
 
@@ -118,5 +116,55 @@ public class OrderItemImpl implements OrderService {
 
         }).toList();
     }
+    @Transactional
+    public void confirmDelivered(Long orderId) {
+        Order order = orderRepository.findOrderById(orderId)
+                .orElseThrow(() -> new RuntimeException("Not found order"));
+        if(!Objects.equals(order.getShippingStatus(), "SHIPPING")) {
+            throw new RuntimeException("");
+        }
+        order.setShippingStatus("DELIVERED");
+    }
+    @Transactional
+    public void cancelOrder(Long orderId) {
 
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
+
+
+        if(order.getStatus().equals("CANCELLED")){
+            throw new RuntimeException("Đơn đã bị huỷ trước đó");
+        }
+
+        if(order.getStatus().equals("EXPIRED")){
+            throw new RuntimeException("Đơn đã hết hạn");
+        }
+
+        if(order.getStatus().equals("DELIVERED")){
+            throw new RuntimeException("Đơn đã giao, không thể huỷ");
+        }
+
+
+        // 3. Lấy danh sách item
+        List<OrderItem> items = orderItemRepository.findByOrder(order);
+
+        // 4. Hoàn lại kho
+        for(OrderItem item : items){
+
+            Book book = bookRepository.findById(item.getBookId())
+                    .orElseThrow(() -> new RuntimeException("Book not found"));
+
+            book.setQuantity(
+                    book.getQuantity() + item.getQuantity().intValue()
+            );
+
+            bookRepository.save(book);
+        }
+
+        // 5. Update trạng thái
+        order.setStatus("CANCELLED");
+        order.setShippingStatus("CANCELLED");
+        orderRepository.save(order);
+    }
 }

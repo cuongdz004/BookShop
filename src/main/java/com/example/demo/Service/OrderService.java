@@ -11,4 +11,6 @@ public interface OrderService {
     void checkOut(CheckOutRequest checkOutRequest);
     int getSumOrder();
     List<OrderResponse> getOrderByEmail(String email);
+    void confirmDelivered(Long id);
+    void cancelOrder(Long orderId);
 }
